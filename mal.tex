@@ -1,0 +1,203 @@
+\documentclass[a4paper, article, oneside, norsk]{memoir} % Alternativt nynorsk
+
+
+%% Tegnkoding
+\usepackage[utf8]{inputenx} % Kildekode
+\usepackage[T1]{fontenc}    % PDF
+
+
+%% Fonter og typografi
+\usepackage{lmodern}           % Latin Modern Roman
+\usepackage[scaled]{beramono}  % Bera Mono (Bitstream Vera Sans Mono)
+\renewcommand{\sfdefault}{phv} % Helvetica
+\usepackage[final]{microtype}  % Forbedret typografi
+\pretitle{\begin{center}\LARGE\sffamily\bfseries\boldmath}           % Tittel
+\renewcommand{\abstractnamefont}{\sffamily\bfseries}                 % Sammendrag
+\renewcommand*{\chaptitlefont}{\Large\bfseries\sffamily\raggedright} % Kapittel
+\setsecheadstyle{\large\bfseries\sffamily\raggedright}               % Seksjon
+\setsubsecheadstyle{\large\bfseries\sffamily\raggedright}            % Underseksjon
+\setsubsubsecheadstyle{\normalsize\bfseries\sffamily\raggedright}    % Underunderseksjon
+\setparaheadstyle{\normalsize\bfseries\sffamily\raggedright}         % Avsnitt
+\setsubparaheadstyle{\normalsize\bfseries\sffamily\raggedright}      % Underavsnitt
+
+
+%% Matematikk
+\usepackage{amssymb}   % Ekstra symboler
+\usepackage{amsthm}    % Teoremaktige omgivelser
+\usepackage{thmtools}  % Teoremaktige omgivelser
+\usepackage{mathtools} % Fonter og omgivelser for matematikk
+\usepackage{mathrsfs}  % Scriptfont med \mathscr{}
+
+
+%% Diverse
+\usepackage{graphicx}  % Bilder
+\usepackage{babel}     % Automatiske oversettelser
+\usepackage{csquotes}  % Sitater
+\usepackage{textcomp}  % Ekstra symboler
+\usepackage{listings}  % Typesetting av kode
+\lstset{basicstyle = \ttfamily, frame = tb}
+
+
+%% Bibliografi
+\usepackage{mathscinet}
+\usepackage[backend    = biber,
+            sortcites  = true,
+            giveninits = true,
+            doi        = false,
+            isbn       = false,
+            url        = false,
+            style      = alphabetic]{biblatex}
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+\DeclareFieldFormat[article]{volume}{\bibstring{jourvol}\addnbspace#1}
+\DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
+\renewbibmacro*{volume+number+eid}
+{
+    \printfield{volume}
+    \setunit{\addcomma\space}
+    \printfield{number}
+    \setunit{\addcomma\space}
+    \printfield{eid}
+}
+%\addbibresource{<BIBLIOGRAFIFILNAVN>.bib}
+
+
+%% Kryssreferanser
+\usepackage{varioref}
+\usepackage[pdfusetitle]{hyperref}
+\urlstyle{sf}
+\usepackage[nameinlink, noabbrev]{cleveref}
+\crefname{chapter}{seksjon}{seksjoner}
+\Crefname{chapter}{Seksjon}{Seksjoner}
+
+
+%% Kompensasjon for lange ord i norsk
+\pretolerance = 2000
+\tolerance    = 6000
+\hbadness     = 6000
+
+
+%% Teoremaktige omgivelser
+\declaretheorem[style = plain, numberwithin = chapter]{teorem}
+\declaretheorem[style = plain,      sibling = teorem]{korollar}
+\declaretheorem[style = plain,      sibling = teorem]{lemma}
+\declaretheorem[style = plain,      sibling = teorem]{proposisjon}
+\declaretheorem[style = definition, sibling = teorem]{definisjon}
+\declaretheorem[style = definition, sibling = teorem]{eksempel}
+\declaretheorem[style = remark,    numbered = no]{bemerkning}
+
+
+%% Avgrensningstegn
+\DeclarePairedDelimiter{\p}{\lparen}{\rparen}   % Parentes
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace} % Mengde
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}   % Absoluttverdi
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}  % Norm
+
+
+%% Operatorer
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+
+%% Nye kommandoer for mengder
+\newcommand{\N}{\mathbb{N}}   % Naturlige tall
+\newcommand{\Z}{\mathbb{Z}}   % Heltall
+\newcommand{\Q}{\mathbb{Q}}   % Rasjonale tall
+\newcommand{\R}{\mathbb{R}}   % Reelle tall
+\newcommand{\C}{\mathbb{C}}   % Komplekse tall
+\newcommand{\A}{\mathbb{A}}   % Affint rom
+\renewcommand{\P}{\mathbb{P}} % Projektivt rom
+
+
+%% Nye kommandoer for vektorer
+\renewcommand{\a}{\mathbf{a}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\c}{\mathbf{c}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+
+
+%% Diverse
+\renewcommand{\qedsymbol}{\(\blacksquare\)}
+
+
+\title{En fengende tittel}
+\author{Forfatter}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+    \noindent
+    Kort oppsummering av artikkelen.
+\end{abstract}
+
+
+\chapter{Introduksjon}
+
+
+Hensikten med artikkelen, historisk kontekst, viktig bakgrunnsinformasjon og notasjon.
+
+
+\chapter{Hoveddel}
+
+
+Fulle bevis, numeriske implementasjoner.
+
+\begin{teorem}[Pythagoras]
+    \label{thm:pythagoras}
+    I en rettvinklet trekant er kvadratet av hypotenusen lik summen av kvadratene av katetene. Det vil si,
+    \begin{align}
+        \label{eq:pythagoras}
+            a^2 + b^2 = c^2,
+    \end{align}
+    der \(c\) er lengden av hypotenusen og \(a\) og \(b\) er lengdene til de to katetene.
+\end{teorem}
+
+\begin{proof}
+    Tegn en figur.
+\end{proof}
+
+
+\chapter{Konklusjoner}
+
+
+Valgfritt. Resultater, konsekvenser, fremtidig arbeid.
+
+\Cref{tab:tall} lister noen heltall som oppfyller \cref{eq:pythagoras} i \cref{thm:pythagoras}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        \(\boldsymbol{a}\) & \(\boldsymbol{b}\) & \(\boldsymbol{c}\)
+        \\
+        \midrule
+        3 & 4 & 5
+        \\
+        65 & 72 & 97
+        \\
+        \bottomrule
+    \end{tabular}
+    \caption{Noen interessante tall}
+    \label{tab:tall}
+\end{table}
+
+
+\printbibliography
+
+
+\end{document}

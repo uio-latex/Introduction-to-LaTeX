@@ -1,0 +1,195 @@
+\documentclass[a4paper, article, oneside, UKenglish]{memoir}
+
+
+%% Encoding
+\usepackage[utf8]{inputenx} % Source code
+\usepackage[T1]{fontenc}    % PDF
+
+
+%% Fonts and typography
+\usepackage{lmodern}           % Latin Modern Roman
+\usepackage[scaled]{beramono}  % Bera Mono (Bitstream Vera Sans Mono)
+\renewcommand{\sfdefault}{phv} % Helvetica
+\usepackage[final]{microtype}  % Improved typography
+\pretitle{\begin{center}\LARGE\sffamily\bfseries}                    % Title
+\renewcommand{\abstractnamefont}{\sffamily\bfseries}                 % Abstract
+\renewcommand*{\chaptitlefont}{\Large\bfseries\sffamily\raggedright} % Chapter
+\setsecheadstyle{\large\bfseries\sffamily\raggedright}               % Section
+\setsubsecheadstyle{\large\bfseries\sffamily\raggedright}            % Subsection
+\setsubsubsecheadstyle{\normalsize\bfseries\sffamily\raggedright}    % Subsubsection
+\setparaheadstyle{\normalsize\bfseries\sffamily\raggedright}         % Paragraph
+\setsubparaheadstyle{\normalsize\bfseries\sffamily\raggedright}      % Subparagraph
+
+%% Mathematics
+\usepackage{amssymb}   % Extra symbols
+\usepackage{amsthm}    % Theorem-like environments
+\usepackage{thmtools}  % Theorem-like environments
+\usepackage{mathtools} % Fonts and environments for mathematical formuale
+\usepackage{mathrsfs}  % Script font with \mathscr{}
+
+
+%% Miscellanous
+\usepackage{graphicx}  % Tool for images
+\usepackage{babel}     % Automatic translations
+\usepackage{csquotes}  % Quotes
+\usepackage{textcomp}  % Extra symbols
+\usepackage{listings}  % Typesetting code
+\lstset{basicstyle = \ttfamily, frame = tb}
+
+
+%% Bibliography
+\usepackage{mathscinet}
+\usepackage[backend    = biber,
+            sortcites  = true,
+            giveninits = true,
+            doi        = false,
+            isbn       = false,
+            url        = false,
+            style      = alphabetic]{biblatex}
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+\DeclareFieldFormat[article]{volume}{\bibstring{jourvol}\addnbspace#1}
+\DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
+\renewbibmacro*{volume+number+eid}
+{
+    \printfield{volume}
+    \setunit{\addcomma\space}
+    \printfield{number}
+    \setunit{\addcomma\space}
+    \printfield{eid}
+}
+%\addbibresource{<NAME OF BIBLIOGRAPY FILE>.bib}
+
+
+%% Cross references
+\usepackage{varioref}
+\usepackage[pdfusetitle]{hyperref}
+\urlstyle{sf}
+\usepackage[nameinlink, capitalize, noabbrev]{cleveref}
+\crefname{chapter}{Section}{Sections}
+
+
+%% Theorem-like environments
+\declaretheorem[style = plain, numberwithin = chapter]{theorem}
+\declaretheorem[style = plain,      sibling = theorem]{corollary}
+\declaretheorem[style = plain,      sibling = theorem]{lemma}
+\declaretheorem[style = plain,      sibling = theorem]{proposition}
+\declaretheorem[style = definition, sibling = theorem]{definition}
+\declaretheorem[style = definition, sibling = theorem]{example}
+\declaretheorem[style = remark,    numbered = no]{remark}
+
+
+%% Delimiters
+\DeclarePairedDelimiter{\p}{\lparen}{\rparen}   % Parenthesis
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace} % Set
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}   % Absolute value
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}  % Norm
+
+
+%% Operators
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+
+%% New commands for sets
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\A}{\mathbb{A}}   % Affine space
+\renewcommand{\P}{\mathbb{P}} % Projective space
+
+
+%% New commands for vectors
+\renewcommand{\a}{\mathbf{a}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\c}{\mathbf{c}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+
+
+%% Miscellanous
+\renewcommand{\qedsymbol}{\(\blacksquare\)}
+
+
+\title{Some Snappy Title}
+\author{First Author}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+    \noindent
+    Brief summary of the paper.
+\end{abstract}
+
+
+\chapter{Introduction}
+
+
+Purpose of the paper, historical context, necessary background information and notation.
+
+
+\chapter{Body of the Work}
+
+
+Full proofs, numerical implementations.
+
+\begin{theorem}[Pythagoras]
+    \label{thm:pythagoras}
+    In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. That is,
+    \begin{align}
+        \label{eq:pythagoras}
+            a^2 + b^2 = c^2,
+    \end{align}
+    where \(c\) is the length of the hypotenuse and \(a\) and \(b\) are the lengths of the two other sides.
+\end{theorem}
+
+\begin{proof}
+    Draw a figure.
+\end{proof}
+
+
+\chapter{Conclusions}
+
+
+Optional. Results, consequences, future work.
+
+\cref{tab:numbers} lists some integers satisfying \cref{eq:pythagoras} of \cref{thm:pythagoras}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        \(\boldsymbol{a}\) & \(\boldsymbol{b}\) & \(\boldsymbol{c}\)
+        \\
+        \midrule
+        3 & 4 & 5
+        \\
+        65 & 72 & 97
+        \\
+        \bottomrule
+    \end{tabular}
+    \caption{Some interesting numbers}
+    \label{tab:numbers}
+\end{table}
+
+
+\printbibliography
+
+
+\end{document}

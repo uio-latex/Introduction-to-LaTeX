@@ -1,0 +1,462 @@
+% Compile the document using:
+%
+%    pdflatex <filename>.tex
+%
+% If you need to use a system font, compile with one of the following:
+%
+%    xelatex <filename>.tex
+%    lualatex <filename>.tex
+%
+% XeLaTeX and LuaLaTeX are newer, but pdfLaTeX is still the standard.
+
+
+\documentclass[a4paper]{memoir}
+
+
+% Common document classes:
+% article - For short papers, 1-20 pages
+% amsart  - Similar to article, following the style guide by AMS
+% report  - For longer reports, 20-80 pages
+% book    - For even longer documents, 80+ pages
+% memoir  - A very customisable class that can play all of the above roles
+% beamer  - For slides
+
+
+% Some document class options:
+% a4paper             - Paper format
+% 11pt / 12pt         - Font size
+% draft               - Highlight overfull hboxes
+% oneside / twoside   - Margins
+% openany / openright - Chapter starting page
+% fleqn               - Left-justify display style math
+% leqno               - Put equation numbers on the left
+% article             - Imitate the Article class with Memoir
+
+
+\usepackage[utf8]{inputenx}     % Source file encoding
+\usepackage[T1]{fontenc}        % Font encoding
+\usepackage{microtype}          % Improved typography
+\usepackage{amssymb}            % Extra symbols
+\usepackage{mathtools}          % Math fonts and more
+\usepackage{amsthm}             % Theorem-like environments
+\usepackage{thmtools}           % Theorem-like environments, extends amsthm
+\usepackage{graphicx}           % Tool for images
+\usepackage{varioref}           % Cross references, \vref
+\usepackage{hyperref}           % Clickable links
+\usepackage[nameinlink,
+            capitalize,
+            noabbrev]{cleveref} % Cross references, \cref
+
+
+\DeclareMathOperator{\rank}{rank}
+\DeclarePairedDelimiter{\p}{(}{)}
+\declaretheorem[style = plain, numberwithin = chapter]{theorem}
+
+
+\begin{document}
+
+
+\chapter{Basic Syntax}
+
+
+\LaTeX\ commands begin with a backslash (there are some exceptions in old \TeX). They come in two flavours, simple macros and environments. Their syntax is as follows:
+
+% \macro[optional argument]{input}
+
+% \begin{environment}[optional argument]
+%     input
+% \end{environment}
+
+If a macro is not followed by curly braces, then it will use the next non-space character as its input. \textbf Example vs \textbf{Example}. Macros that do not take any input will also swallow all space following it. Consider for instance the \LaTeX logo. To stop this, the macro can be closed by either a backslash or empty braces (\LaTeX\ or \LaTeX{}).
+
+The number of spaces in the source code          does        not        matter.
+Neither does a single line break.
+
+But two line breaks start a new paragraph.
+
+
+\chapter{Mathematics}
+
+
+\section{Inline and Display Style}
+Inline math mode is enabled with \( \) (\LaTeX) or $ $ (\TeX). This is used for single variables, such as \(x\), or small expressions, such as
+\(
+    \cos \frac{\pi}{2} + i\sin \frac{\pi}{2} = i
+\),
+inside normal text.
+
+Display style mathematics is (typically) given a line of its own, and is used for long expressions or to highlight a certain formula. There are numerous ways to enable display style. We will only mention a few. The analogous environments to the inline math modes are
+\[
+    \lim_{n \to \infty} a_n
+\]
+and
+$$
+    f \colon X \to Y
+$$
+The drawbacks of these are that they only allow a single line and they have no counter. The \emph{equation} environment also allows only one line, but it has a counter that is removed in the starred version.
+\begin{equation}
+    \label{eq:matrix}
+    \begin{bmatrix*}[r]
+        1 & 0 & -1 \\
+        0 & 1 &  0 \\
+        1 & 0 &  1
+    \end{bmatrix*}
+\end{equation}
+\begin{equation*}
+    \binom{n}{k} = \frac{n!}{k! (n - k)!}
+\end{equation*}
+The \emph{align} environment allows for multiple lines. Again, the star removes the counters.
+\begin{align*}
+    \int \frac{2x + 3}{(x - 2)(x + 2)} \mathrm{d}x
+    &=
+    \int \frac{7}{4(x - 2)} + \frac{1}{4(x + 2)} \mathrm{d}x
+    \\
+    &=
+    \frac{7}{4} \ln |x - 2| + \frac{1}{4} \ln |x + 2| + \mathcal{C}
+\end{align*}
+The double backslashes used to break the line is a normal macro that can take an optional argument. This argument is a length, that can be negative, which is added to the space between the lines:
+\begin{align*}
+    \int \frac{2x + 3}{(x - 2)(x + 2)} \mathrm{d}x
+    &=
+    \int \frac{7}{4(x - 2)} + \frac{1}{4(x + 2)} \mathrm{d}x
+    \\[5ex]
+    &=
+    \frac{7}{4} \ln |x - 2| + \frac{1}{4} \ln |x + 2| + \mathcal{C}
+\end{align*}
+% Some units:
+% ex - Height of small 'x'
+% em - Width of capital 'M'
+% pt - Point, 1/72.27 inch
+% cm
+% mm
+% \textwidth
+% \textheight
+It is possible to force display style in inline math, but it is generally not recommended since it adds too much white space between the lines.
+\(
+    \sum_{i = 1}^{n} x_i
+\)
+vs 
+\(
+    \displaystyle
+    \sum_{i = 1}^{n} x_i
+\).
+Some commands have special display style versions. \(\dfrac{1}{2}\) vs \(\frac{1}{2}\).
+\begin{align*}
+    f
+    &=
+    \begin{dcases*}
+        \frac{1}{2} & if \(x \in [0, 1]\)
+        \\
+        1 & if \(x > 1\)
+    \end{dcases*}
+    \shortintertext{vs.}
+    f
+    &=
+    \begin{cases*}
+        \frac{1}{2} & if \(x \in [0, 1]\)
+        \\
+        1 & if \(x > 1\)
+    \end{cases*}
+\end{align*}
+
+
+\section{Custom Macros}
+In math mode, all letters are assumed to be variables. This means that they are italicised, but it also means extra space is added around each letter. Notice the difference:
+\begin{gather*}
+    MATHEMATICS
+    \shortintertext{vs.}
+    \mathit{MATHEMATICS}
+\end{gather*}
+The most common way to write normal text in math mode is with \emph{operators}. These are written in an upright font, followed by a small space. Notice the difference between just an upright font, \(\mathrm{sin} x\), and a predefined operator, \(\sin x\). We can declare our own operators. In the preamble we have defined the rank operator \(\rank A\) by
+% \DeclareMathOperator{\rank}{rank}
+
+The parentheses in
+\begin{align*}
+    (\sum_{i = 1}^{n} x_i)
+\end{align*}
+look too small. We can fix this in this way:
+\begin{align*}
+    \Bigg(\sum_{i = 1}^{n} x_i\Bigg)
+\end{align*}
+We had to manually check which macro gave the correct size. An automatic solution to this is the following:
+\begin{align*}
+    \left(\sum_{i = 1}^{n} x_i\right)
+\end{align*}
+After a while, we get tired of writing left and right. We can declare parentheses as paired delimiters in the preamble with
+% \DeclarePairedDelimiter{\p}{(}{)}
+We can then use the newly defined command as follows:
+\begin{align*}
+    \p{\sum_{i = 1}^{n} x_i}
+    \\
+    \p[\Bigg]{\sum_{i = 1}^{n} x_i}
+    \\
+    \p*{\sum_{i = 1}^{n} x_i}
+\end{align*}
+Note that you cannot use left and right across multiple lines! In that case you need to control the size manually.
+
+We also have the \emph{middle} macro, but not all symbols can use it. The normal set builder symbol is \(\mid\). Note that \(|\) has too little white space around it. However, \emph{mid} does not scale, so the best we can achieve is
+\begin{align*}
+    \left\{
+        \mathbf{x} \in \mathbb{R}^n
+        \mid
+        \sum_{i = 1}^{n} = 1
+    \right\}
+\end{align*}
+However, we can do the following:
+\begin{align*}
+    \left\{
+        \mathbf{x} \in \mathbb{R}^n
+        \middle\arrowvert
+        \sum_{i = 1}^{n} = 1
+    \right\}
+\end{align*}
+
+We can define environments for theorem-like statements using the \emph{amsthm} and \emph{thmtools} packages in this manner:
+% \declaretheorem[style = plain, numberwithin = chapter]{theorem}
+
+\begin{theorem}[Famous Mathematician]
+    True statement.
+\end{theorem}
+
+\begin{proof}
+    Reasons.
+\end{proof}
+
+Use custom macros to save typing! It is boring to write \(\mathbb{C}\) every time. With
+\newcommand{\C}{\mathbb{C}}
+we only need to type \(\C\).
+
+
+\section{Miscellaneous}
+Bold symbols come in two flavours. The most common is bold and upright, such as \(\mathbf{a}\). This is, among other things, used to denote vectors. The other flavour looks like the normal math symbols, just drawn thicker, such as \(\boldsymbol{a}\). This is nice for table and section headings.
+
+Below are various much-used symbols:
+
+Ellipses:
+\(a_1, \ldots, a_n\) and \(a_1 \times \cdots \times a_n\)
+
+Implications: \(\implies, \impliedby, \iff\)
+
+Set theory:
+\(
+    \cup, \cap, \setminus, \subset, \subseteq, \supset, \supseteq,
+    \in, \ni, \notin, \not\ni, \emptyset, \varnothing
+\)
+
+Relation symbols: \(\le, \leqslant, \ge, \geqslant\)
+
+Various: \(\forall, \exists, \nexists, \pm, \mp\)
+
+Greek letters:
+\begin{align*}
+    \alpha, \beta, \gamma, \delta, \epsilon, \varepsilon, \zeta,
+    \eta, \theta, \vartheta, \iota, \kappa, \lambda, \mu, \nu,
+    \xi, o, \pi, \varpi, \rho, \varrho, \sigma, \varsigma, \tau,
+    \upsilon, \phi, \varphi, \chi, \psi, \omega
+    \\
+    A, B, \Gamma, \Delta, E, Z, H, \Theta, I, K, \Lambda, M, N, \Xi,
+    O, \Pi, P, \Sigma, T, \Upsilon, \varUpsilon, \Phi, X, \Psi, \Omega
+\end{align*}
+
+
+\chapter{Floats and Cross References}
+
+
+\section{Figures}
+Images can be included like this:
+
+\includegraphics{apollon}
+
+\noindent
+We can control the size in various ways:
+
+\includegraphics[height = 0.2\textheight]{apollon}
+\includegraphics[width = 0.3\textwidth]{apollon}
+\includegraphics[scale = 0.5]{apollon}
+
+\noindent
+We can centre the image and add some white space before and after the image:
+\begin{center}
+    \includegraphics[scale = 0.5]{apollon}
+\end{center}
+Images included like this will stay exactly where we placed them. However, the \LaTeX\ way is to wrap images in a \emph{floating} environment. This allows \LaTeX\ to place them wherever \LaTeX\ thinks it is best in respect to page and paragraph breaks. For images, the correct float is \emph{figure}:
+
+\begin{figure}[h!tbp]
+    \centering
+    \includegraphics{apollon}
+    \caption{Apollon seal belonging to the UiO logo}
+    \label{fig:apollon}
+\end{figure}
+
+You can optionally specify a prioritised list of possible positions for the float. The options are `h' for \emph{here}, `t' for the \emph{top} of a page, `b' for the \emph{bottom} of a page and `p' for a \emph{page} consisting only of floats. Adding an exclamation mark `!' to the list allows \LaTeX\ to slightly alter the amount of white space around the float in order to achieve the desired position.
+
+
+\section{Tables}
+
+
+Similarly, tables can also be placed anywhere with \emph{tabular}:
+
+\begin{center}
+    \begin{tabular}{llr}
+        \toprule
+        \multicolumn{2}{c}{Item} &            \\
+        \cmidrule(r){1-2}
+        Animal    & Description  & Price (\$) \\
+        \midrule
+        Gnat      & per gram     & 13.65      \\
+                  & each         & 0.01       \\
+        Gnu       & stuffed      & 92.50      \\
+        Emu       & stuffed      & 33.33      \\
+        Armadillo & frozen       & 8.99       \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+However, it is best to put the tabular inside the float \emph{table}.
+
+\begin{table}[p]
+    \centering
+    \begin{tabular}{llr}
+        \toprule
+        \multicolumn{2}{c}{Item} &            \\
+        \cmidrule(r){1-2}
+        Animal    & Description  & Price (\$) \\
+        \midrule
+        Gnat      & per gram     & 13.65      \\
+                  & each         & 0.01       \\
+        Gnu       & stuffed      & 92.50      \\
+        Emu       & stuffed      & 33.33      \\
+        Armadillo & frozen       & 8.99       \\
+        \bottomrule
+    \end{tabular}
+    \caption{Price of animals}
+    \label{tab:animals}
+\end{table}
+
+
+\section{Cross References}
+With floats, you cannot write statements like `as can be seen in the following figure/table'. Instead, you should write `as can be seen in Figure~1/Table~2.3'.
+
+Anything with a counter (chapters, sections, equations, theorems, figures, tables, etc.) can be given a label key with \label{key}. The counter can then be referenced with \ref{key}. For equations, it is better to use \eqref{eq:matrix}.
+
+Using the \emph{cleveref} package, we get the macro \cref{key}, which will print what type of object the key refers to. In addition, the macro \vref{tab:animals} from the \emph{varioref} package will print where the object is.
+
+
+
+\chapter{General Writing}
+
+
+\section{Fonts}
+To \emph{emphasise} text, use the \emph{emph} macro. \emph{This is a stackable macro that produces italics in an \emph{upright} environment and \emph{upright} font in an italicised environment.} Here are other macros for manipulating text\footnote{This is not a properly typeset document. Just because I have created a non-floating table, does not mean that you should.}:
+
+\begin{center}
+    \begin{tabular}{ll}
+        \textit{Italics}    & \(\mathit{Italics}\)    \\
+        \textsl{Slanted}    &                         \\
+        \textbf{Bold face}  & \(\mathbf{Bold face}\)  \\
+        \textsc{Small caps} &                         \\
+        \texttt{Teletype}   & \(\mathtt{Teletype}\)   \\
+        \textsf{Sans serif} & \(\mathsf{Sans serif}\)
+    \end{tabular}
+\end{center}
+
+
+\section{Lists}
+Lists can be created in the following ways:
+
+\begin{itemize}
+    \item
+    This is a list
+
+    \item
+    with bullet points.
+\end{itemize}
+
+\begin{enumerate}
+    \item
+    This is a
+
+    \item
+    numbered list.
+\end{enumerate}
+
+\begin{description}
+    \item[Description]
+    is a list that highlights the word that is being defined or described. The rest of the text is indented.
+\end{description}
+
+Special list can be automatically created (must be compiled twice):
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+\chapter{Useful Packages}
+
+
+(That are not included in the preamble.)
+
+\begin{description}
+    \item[babel]
+    Automatic translations
+
+    \item[biblatex]
+    Bibliography tool
+
+    \item[listings]
+    Typesetting of code
+
+    \item[tikz]
+    General drawing tool (If you do not want to learn Ti\textit{k}Z, then you can export code from GeoGebra)
+
+    \item[tikz-cd]
+    Drawing tool for commutative diagrams
+
+    \item[textcomp]
+    Extra symbols
+
+    \item[siunitx]
+    Typesetting of units
+
+    \item[todonotes]
+    Marginal notes
+
+    \item[showkeys]
+    Labels in margins
+
+    \item[enumitem]
+    Provides options for the list environments. This will overwrite the \emph{enumerate} package that is already loaded by Memoir.
+\end{description}
+
+
+\chapter{Learn More}
+
+
+\begin{description}
+    \item[Package documentations]
+    \url{http://ctan.org}
+
+    \item[UiO \LaTeX\ resources]
+    \url{http://www.mn.uio.no/ifi/tjenester/it/hjelp/latex/}
+
+    \item[General introduction to \LaTeX]
+    \url{https://en.wikibooks.org/wiki/LaTeX}
+
+    \item[Find symbols]
+    \url{http://detexify.kirelabs.org/classify.html}
+
+    \item[Ti\textit{k}Z examples with source code]
+    \url{http://www.texample.net/tikz/}
+
+    \item[Ti\textit{k}Z-CD editor]
+    \url{https://tikzcd.yichuanshen.de/}
+
+    \item[Available fonts]
+    \url{http://www.tug.dk/FontCatalogue/}
+
+    \item[Ask for help]
+    \url{http://tex.stackexchange.com/}
+\end{description}
+
+
+\end{document}
