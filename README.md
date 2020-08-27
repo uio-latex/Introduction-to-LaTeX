@@ -17,7 +17,7 @@ After having tried writing LaTeX themselves,
 the students are advised to read a note about [avoiding common mistakes](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/commonmistakes.pdf).
 
 For longer texts,
-the students are given a [guide for structuring large documents](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/survivalguide.pdf)
+the students are given a [guide for structuring large documents](https://github.com/martinhelso/large-documents/blob/master/README.md)
 and a [template](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/starting-kit) implementing the tips from the guide.
 
 Finally,
