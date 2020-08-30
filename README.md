@@ -1,27 +1,27 @@
 # Introduction to LaTeX
 
-[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/LICENSE)
+[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 This is a collection of resources used to teach LaTeX at the Department of Mathematics at the University of Oslo.
 
 First,
-the students are given a [general introduction](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/latex) to LaTeX
+the students are given a [general introduction](latex) to LaTeX
 with focus on writing mathematics, using floats and cross references.
 
-This is followed by an [introduction to BibLaTeX](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/biblatex.pdf),
+This is followed by an [introduction to BibLaTeX](biblatex.md),
 which is a package for managing citations and reference lists.
 
-The students are provided with both an [English template](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/template.tex) and a [Norwegian template](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/mal.tex) for their first document.
+The students are provided with both an [English template](template.tex) and a [Norwegian template](mal.tex) for their first document.
 
 After having tried writing LaTeX themselves,
-the students are advised to read a note about [avoiding common mistakes](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/commonmistakes.pdf).
+the students are advised to read a note about [avoiding common mistakes](common-mistakes.md).
 
 For longer texts,
-the students are given a [guide for structuring large documents](https://github.com/martinhelso/large-documents/blob/master/README.md)
-and a [template](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/starting-kit) implementing the tips from the guide.
+the students are given a [guide for structuring large documents](large-documents.md)
+and a [template](starting-kit) implementing the tips from the guide.
 
 Finally,
-the students are given an [introduction to Beamer](https://github.com/martinhelso/Introduction-to-LaTeX/blob/master/beamer),
+the students are given an [introduction to Beamer](beamer),
 showing them how to create slides and posters using LaTeX.
 
 ## UiO LaTeX resources
