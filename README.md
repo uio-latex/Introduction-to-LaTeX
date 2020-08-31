@@ -31,7 +31,8 @@ there are templates and packages specific to the University of Oslo
 available to the students.
 These can be found under the [UiO tag at Overleaf](https://www.overleaf.com/gallery/tagged/uio)
 and in the following GitHub repositories:
-* [phduio](https://github.com/martinhelso/phduio), a class for PhD theses;
+* [phduio-article-based](https://github.com/martinhelso/phduio-article-based), a template for article based PhD theses;
+* [phduio-monograph](https://github.com/martinhelso/phduio-monograph), a template for monographic PhD theses;
 * [uioposter](https://github.com/martinhelso/uioposter), a class for scientific posters;
 * [mnfrontpage](https://github.com/martinhelso/mnfrontpage), a package for front pages for documents at the Faculty of Mathematics and Natural Sciences;
 * [masterfrontpage](https://github.com/martinhelso/masterfrontpage), a package for front pages for master's theses at the Department of Mathematics;
